@@ -12,35 +12,65 @@ public class Game {
 	int mul;
 
 	private Game() {
-		System.out.println("in constructor");
 		this.size = array.length;
 		this.scorePoints = 1000;
 		this.scan = new Scanner(System.in);
 		this.betPoints = 10;
 		this.bets = 0;
-		System.out.println("Enter Multiplier: ");
+		System.out.print("Enter Multiplier: ");
 		mul = scan.nextInt();
 	}
 
 	public static void main(String as[]) {
 		game = new Game();
-		game.makeBet();
+		while (true) {
+			System.out.println("<<< Choose Option >>>");
+			System.out.println("1 : for Bet || 0 : for Exit");
+			int option = game.scan.nextInt();
+			switch (option) {
+			case 1: {
+				System.out.println("How many Bets ??");
+				long betsToDo = game.scan.nextLong();
+				game.makeMultipleBets(betsToDo);
+				break;
+			}
+			case 0: {
+				game.endGame();
+				break;
+			}
+			default: {
+				System.out.println("choose valid option !!");
+				break;
+			}
+			}
+			
+		}
 	}
 
 	private void makeBet() {
 		if (game.scorePoints >= game.betPoints) {
+			game.scorePoints -= game.betPoints;
+
 			int random = game.getRandom();
 			long result = game.mul * random;
-			
-		}
-		else {
+
+			game.scorePoints += result;
+			game.bets++;
+			game.showBetResult(result, random);
+
+		} else {
 			System.out.println("not enought points to make a bet.");
 			game.endGame();
 		}
 	}
 
+	private void showBetResult(long result, int random) {
+		System.out.println("Random number choosen: " + random);
+		System.out.println("Bet Score: " + (result - betPoints) + " || " + "Total Score Points: " + game.scorePoints);
+	}
+
 	private void makeMultipleBets(long no) {
-		for (long i = no; i > 0; i++) {
+		for (long i =0; i < no; i++) {
 			game.makeBet();
 		}
 	}
