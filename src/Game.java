@@ -66,7 +66,9 @@ public class Game {
 
 	private void showBetResult(long result, int random) {
 		System.out.println("Random number choosen: " + random);
-		System.out.println("Bet Score: " + (result - betPoints) + " || " + "Total Score Points: " + game.scorePoints);
+		System.out.println("Bet Amount: "+betPoints+" || " +"Points Made: "+result +" || "+ "Credit : " + (result - betPoints));
+		System.out.println("Total Score Points: " + game.scorePoints+" || " +" Total Bets: "+game.bets);
+		System.out.println();
 	}
 
 	private void makeMultipleBets(long no) {
